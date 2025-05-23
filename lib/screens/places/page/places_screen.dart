@@ -1,13 +1,27 @@
 import 'package:favorite_places_app/model/place.dart';
 import 'package:favorite_places_app/screens/place_creator_screen.dart';
 import 'package:favorite_places_app/screens/places/bloc/place_bloc.dart';
+import 'package:favorite_places_app/screens/places/bloc/place_event.dart';
 import 'package:favorite_places_app/screens/places/bloc/place_state.dart';
 import 'package:favorite_places_app/widget/place_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PlacesScreen extends StatelessWidget {
+class PlacesScreen extends StatefulWidget {
   const PlacesScreen({super.key});
+
+  @override
+  State<PlacesScreen> createState() => _PlacesScreenState();
+}
+
+class _PlacesScreenState extends State<PlacesScreen> {
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<PlaceBloc>().add(FetchPlaces());
+  }
 
   // navigate to the individual favorite place
   void onPressedAdd(context) {
@@ -38,7 +52,10 @@ class PlacesScreen extends StatelessWidget {
               itemBuilder: (context, index) => PlaceItem(
                 place: Place(
                     title: placeBloc.state.places[index].title,
-                    imagePath: placeBloc.state.places[index].imagePath),
+                    imagePath: placeBloc.state.places[index].imagePath,
+                    address: placeBloc.state.places[index].address,
+                    location: placeBloc.state.places[index].location,
+                    mapImagePath: placeBloc.state.places[index].mapImagePath),
               ),
             ),
           ],

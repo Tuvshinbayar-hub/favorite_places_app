@@ -13,3 +13,5 @@ class AddToPlaces extends PlaceEvent {
 
   final Place place;
 }
+
+class FetchPlaces extends PlaceEvent {}

@@ -2,6 +2,7 @@ import 'package:favorite_places_app/screens/places/bloc/place_bloc.dart';
 import 'package:favorite_places_app/screens/places/page/places_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,7 +28,15 @@ final theme = ThemeData().copyWith(
   ),
 );
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await dotenv.load();
+  } catch (e) {
+    print('Failed to load .env: $e');
+  }
+
   runApp(
     const MyApp(),
   );

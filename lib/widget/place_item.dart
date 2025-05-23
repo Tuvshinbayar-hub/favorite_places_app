@@ -16,41 +16,18 @@ class PlaceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        onTap(context);
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Stack(
-          children: [
-            Hero(
-              tag: place.id,
-              child: Image.file(
-                place.image,
-                width: double.infinity,
-                height: 80,
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(
-              height: 80,
-              child: Row(children: [
-                SizedBox(
-                  width: 16,
-                ),
-                Text(
-                  place.title,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(color: Colors.black),
-                ),
-              ]),
-            )
-          ],
+    return ListTile(
+      leading: Hero(
+        tag: place.id,
+        child: Image.file(
+          place.image,
+          height: 80,
+          fit: BoxFit.cover,
         ),
       ),
+      title: Text(place.title),
+      subtitle: Text(place.address),
+      onTap: () => {onTap(context)},
     );
   }
 }
